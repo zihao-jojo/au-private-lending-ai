@@ -14,6 +14,7 @@ Deep research into the Australian private credit / non-bank lending market and A
 | [06-ai-opportunities.md](./06-ai-opportunities.md) | 7 specific AI opportunity areas with gap analysis |
 | [07-global-comps.md](./07-global-comps.md) | Global AI lending companies: Ocrolus, Zest AI, Blend, etc. |
 | [08-go-to-market.md](./08-go-to-market.md) | GTM strategies for each opportunity area |
+| [12-fraud-detection-market.md](./12-fraud-detection-market.md) | AU fraud detection market: document, insurance, identity, payment, tax fraud & horizontal platform opportunity |
 
 ## Key Findings
 
