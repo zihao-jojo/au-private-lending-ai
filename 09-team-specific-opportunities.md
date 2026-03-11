@@ -104,6 +104,100 @@ This is the biggest challenge. How to train models without historical loan perfo
 4. **Earn data through the fund (Direction B)**: Every deal we do ourselves generates labeled training data
 5. **Offer free/cheap to first 5 lenders**: In exchange for anonymized historical deal data (funded deals + defaults)
 
+### Detailed Bootstrap Plan: From Zero Data to Working Model
+
+The key insight: **you don't need ML or historical data to start. And Direction B (fund) is the prerequisite for Direction A (API).**
+
+#### Stage 1: Rules Engine with CDR Data (No historical data needed)
+
+Private lenders don't even have a rules engine. Systemizing their intuition is already a massive upgrade.
+
+Using CDR bank transaction data (Friend's core expertise from Wagetap), build rule-based scoring:
+
+```
+INCOME RULES:
+  - Monthly income stable (6-month variance <20%)        → low risk
+  - Income declining trend over 3 months                 → medium risk
+  - Irregular income with >50% month-to-month swings     → high risk
+  - Multiple income sources (diversified)                 → positive signal
+
+RED FLAGS:
+  - Gambling transactions detected                        → major red flag
+  - Payday loan usage (Wagetap, Beforepay, etc.)         → stress signal
+  - BNPL (Afterpay/Zip) high frequency                   → over-leveraged signal
+  - Recent dishonours / bounced payments                  → red flag
+  - Cash withdrawals >30% of income                       → transparency concern
+
+DEBT ASSESSMENT:
+  - Existing loan repayments / income = DTI ratio         → threshold check
+  - Credit card utilization trend                         → stress indicator
+  - Number of active credit accounts                      → complexity risk
+
+ASSET SIGNALS:
+  - Account balance trend (rising/falling/stable)         → savings capacity
+  - Savings / property value ratio                        → skin in the game
+  - Emergency buffer (months of expenses in savings)      → resilience
+```
+
+These rules don't need training data — they're encoded domain knowledge from Block (Zihao) and Wagetap (Friend). For a private lender going from "gut feel" to "systematic CDR-based scoring", this alone is transformative.
+
+#### Stage 2: Use the Fund to Generate Labeled Data
+
+This is why Direction B (fund) and Direction A (API) must happen together:
+
+```
+Fund our own deals (20-30 loans over 6-12 months)
+    ↓
+Each deal has complete data:
+  - CDR bank transactions (income, spending, debt)
+  - Equifax/illion credit report
+  - Property data (CoreLogic/PropTrack)
+  - Borrower profile and documents
+    ↓
+6-12 months later, we know outcomes:
+  - Paid on time ✓
+  - Late payments ⚠
+  - Defaulted ✗
+    ↓
+This IS our labeled training data
+    ↓
+Train initial ML model (logistic regression or simple GBM)
+30-50 deals is enough for a first model
+```
+
+Every deal the fund does serves double duty: earning interest spread AND generating training data. No other API startup has this advantage.
+
+#### Stage 3: Back-test on Other Lenders' Historical Data
+
+Once we have a working prototype (rules + initial model), approach other lenders:
+
+> "Give us your last 12 months of deal data (anonymized). We'll run our model and show you: which of your approved deals would we have flagged? Which of your defaults could we have predicted? Free analysis, no commitment."
+
+This is the standard sales motion for credit model companies (Zest AI does exactly this). If the back-test shows value, the lender has a concrete reason to subscribe.
+
+#### Stage 4: Model Improves with Scale
+
+```
+More lenders on the API → more deal data flowing through
+    → more labeled outcomes over time
+    → better models
+    → better results
+    → more lenders want to use it
+    → flywheel effect
+```
+
+#### Summary: The Real Bootstrap Sequence
+
+```
+Step 1: Rules engine + CDR data            ← Zero historical data needed
+Step 2: Fund our own deals                 ← Wife brings deal flow
+Step 3: 30-50 deals = initial ML model     ← 6-12 months
+Step 4: Back-test on other lenders' data   ← Prove value, win clients
+Step 5: Sell the API                       ← Now you have data + proof
+```
+
+**You don't build the API then find customers. You build the fund first (be your own customer), earn the data, then sell the API.** The fund is the API's bootstrapping mechanism.
+
 ---
 
 ## Direction B: Tech-Driven Private Lending Fund
